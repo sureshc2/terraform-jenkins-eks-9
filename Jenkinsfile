@@ -9,7 +9,7 @@ pipeline {
         stage('Checkout SCM'){
             steps{
                 script{
-                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/gauri17-pro/terraform-jenkins-eks.git']])
+                    checkout scmGit(branches: [[name: '*/main']], extensions: [], userRemoteConfigs: [[url: 'https://github.com/sureshc2/terraform-jenkins-pipeline-eks.git']])
                 }
             }
         }
@@ -50,11 +50,11 @@ pipeline {
                 }
             }
         }
-        stage('Creating/Destroying an EKS Cluster'){
+        stage('Creating an EKS Cluster'){
             steps{
                 script{
                     dir('EKS') {
-                        sh 'terraform $action --auto-approve'
+                        sh 'terraform apply --auto-approve'
                     }
                 }
             }
@@ -64,8 +64,14 @@ pipeline {
                 script{
                     dir('EKS/ConfigurationFiles') {
                         sh 'aws eks update-kubeconfig --name my-eks-cluster'
-                        sh 'kubectl apply -f deployment.yaml'
-                        sh 'kubectl apply -f service.yaml'
+                        sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
+                        sh 'kubectl create namespace prometheus'
+                        sh 'helm install stable prometheus-community/kube-prometheus-stack -n prometheus'
+                        sh 'kubectl --namespace prometheus get pods'
+                        sh 'kubectl --namespace prometheus get svc'
+                        sh 'kubectl edit svc -n prometheus stable-kube-prometheus-sta-prometheus'
+                        sh 'kubectl edit svc -n prometheus stable-grafana'
+                        sh 'kubectl --namespace prometheus get svc'
                     }
                 }
             }
