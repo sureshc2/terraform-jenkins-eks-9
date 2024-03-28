@@ -22,24 +22,6 @@ pipeline {
                 }
             }
         }
-        stage('Formatting Terraform Code'){
-            steps{
-                script{
-                    dir('EKS'){
-                        sh 'terraform fmt'
-                    }
-                }
-            }
-        }
-        stage('Validating Terraform'){
-            steps{
-                script{
-                    dir('EKS'){
-                        sh 'terraform validate'
-                    }
-                }
-            }
-        }
         stage('Previewing the Infra using Terraform'){
             steps{
                 script{
@@ -62,7 +44,7 @@ pipeline {
         stage('Deploying Nginx Application') {
             steps{
                 script{
-                    dir('EKS/ConfigurationFiles') {
+                    dir('EKS') {
                         sh 'aws eks update-kubeconfig --name my-eks-cluster'
                         sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
                         sh 'kubectl create namespace prometheus'
