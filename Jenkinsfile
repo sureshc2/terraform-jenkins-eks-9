@@ -44,16 +44,10 @@ pipeline {
         stage('Deploying Nginx Application') {
             steps{
                 script{
-                    dir('EKS') {
+                    dir('EKS/ConfigurationFiles') {
                         sh 'aws eks update-kubeconfig --name my-eks-cluster'
-                        sh 'helm repo add prometheus-community https://prometheus-community.github.io/helm-charts'
-                        sh 'kubectl create namespace prometheus'
-                        sh 'helm install stable prometheus-community/kube-prometheus-stack -n prometheus'
-                        sh 'kubectl --namespace prometheus get pods'
-                        sh 'kubectl --namespace prometheus get svc'
-                        sh 'kubectl edit svc -n prometheus stable-kube-prometheus-sta-prometheus'
-                        sh 'kubectl edit svc -n prometheus stable-grafana'
-                        sh 'kubectl --namespace prometheus get svc'
+                        sh 'kubectl apply -f deployment.yaml'
+                        sh 'kubectl apply -f service.yaml'
                     }
                 }
             }
