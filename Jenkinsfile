@@ -45,7 +45,8 @@ pipeline {
             steps{
                 script{
                     dir('EKS/ConfigurationFiles') {
-                        sh 'aws eks update-kubeconfig --name my-eks-cluster'
+                        sh 'aws eks update-kubeconfig --name terraform-eks-demo'
+                        sh 'kubectl version'
                         sh 'kubectl apply -f deployment.yaml'
                         sh 'kubectl apply -f service.yaml'
                     }
