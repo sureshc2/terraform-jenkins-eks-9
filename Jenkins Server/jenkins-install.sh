@@ -28,6 +28,7 @@ sudo yum -y install terraform
 sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
 sudo chmod +x kubectl
 sudo mv kubectl /usr/local/bin/
+#aws s3 cp https://cicd-terraform-eks99.s3.amazonaws.com/jenkins/artifacts/helm.txt /user/local bin
 
 
 #install helm.

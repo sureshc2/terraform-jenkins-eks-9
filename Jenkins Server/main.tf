@@ -83,3 +83,11 @@ module "ec2_instance" {
   }
 }
 
+# resource "aws_s3_bucket" "bnd" {
+#   bucket = "cicd-terraform-eks100"
+# }
+
+# resource "aws_key_pair" "key" {
+#   key_name = "jenkins-server-key1"
+# }
+
