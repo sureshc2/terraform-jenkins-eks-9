@@ -20,14 +20,14 @@ sudo yum-config-manager --add-repo https://rpm.releases.hashicorp.com/AmazonLinu
 sudo yum -y install terraform
 
 #finally install kubectl
-#sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
-#sudo chmod +x ./kubectl
-#sudo mkdir -p $HOME/bin && sudo cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
-#sudo mv kubectl /usr/local/bin/
-
-sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
-sudo chmod +x kubectl
+sudo curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.23.6/bin/linux/amd64/kubectl
+sudo chmod +x ./kubectl
+# sudo mkdir -p $HOME/bin && sudo cp ./kubectl $HOME/bin/kubectl && export PATH=$PATH:$HOME/bin
 sudo mv kubectl /usr/local/bin/
+
+# sudo curl -LO "https://dl.k8s.io/release/$(curl -L -s https://dl.k8s.io/release/stable.txt)/bin/linux/amd64/kubectl"
+# sudo chmod +x kubectl
+# sudo mv kubectl /usr/local/bin/
 #aws s3 cp https://cicd-terraform-eks99.s3.amazonaws.com/jenkins/artifacts/helm.txt /user/local bin
 
 
